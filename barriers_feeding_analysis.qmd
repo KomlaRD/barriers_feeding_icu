@@ -1,0 +1,184 @@
+---
+title: "Barriers to feeding in the ICU"
+format: html
+---
+
+```{r install-packages}
+pacman::p_load(
+  tidyverse,
+  here,
+  rio,
+  gtsummary,
+  skimr,
+  finalfit
+)
+```
+
+```{r import-dataset}
+df <- 
+    import(here("data", "barriers_data.csv"))
+```
+
+
+```{r glimpse-dataset}
+df |>
+  glimpse()
+```
+
+```{r remove-questions}
+# Remove questionnaire improvement questions
+df <- 
+  df |>
+  select(
+    -c(
+      additional_comments,
+      easy_to_understand,
+      confusing_questions,
+      add_items_to_ask,
+      time_to_complete,
+      suggestions_improvement
+    )
+  )
+```
+
+
+```{r mutate-variables}
+# Data transformation
+
+df <- df |>
+  mutate(
+    delay_in_physician_ordering = delay_in_physician_ordering |>
+      ff_label("Delay in physicians ordering the initiation of EN"),
+    wait_for_physician = wait_for_physician |>
+      ff_label("Waiting for physician to confirm tube placement"),
+    frequent_displacement_tube = frequent_displacement_tube |>
+      ff_label("Frequent displacement of feeding tube"),
+    delays_initiating_mobility_agents = delays_initiating_mobility_agents |>
+      ff_label("Delays in initiating motility agents"),
+    delay_small_bowel_access = delay_small_bowel_access |>
+      ff_label("Delays and difficulties in obtaining small bowel access"),
+    other_priorities = other_priorities |>
+      ff_label("Other aspects of care take priority over nutrition"),
+    mnt_not_discussed = mnt_not_discussed |>
+      ff_label("Nutrition therapy not routinely discussed"),
+    wait_for_dietitian = wait_for_dietitian |>
+      ff_label("Waiting for dietitian to assess the patient"),
+    dietitian_not_present_routinely = dietitian_not_present_routinely |>
+      ff_label("Dietitian not routinely present on weekday patient rounds"),
+    not_enough_dietitian_coverage = not_enough_dietitian_coverage |>
+      ff_label("Not enough dietitian coverage"),
+    not_enough_time_training = not_enough_time_training |>
+      ff_label("Not enough time dedicated to education and training on optimal feeding"),
+    en_formula_not_available = en_formula_not_available |>
+      ff_label("Enteral formula not available on the unit"),
+    not_enough_feed_pumps = not_enough_feed_pumps |>
+      ff_label("No or not enough feeding pumps"),
+    non_icu_physicians_en_contraindication = non_icu_physicians_en_contraindication |>
+      ff_label("Non-ICU physicians requesting patient not be fed"),
+    nurses_fail_progress_feed = nurses_fail_progress_feed |>
+      ff_label("Nurses failing to progress feeds"),
+    feeds_held_diarrhoea = feeds_held_diarrhoea |>
+      ff_label("Feeds being held due to diarrhea"),
+    fear_of_adverse_events = fear_of_adverse_events |>
+      ff_label("Fear of adverse events"),
+    feed_held_too_far = feed_held_too_far |>
+      ff_label("Feeding being held too far in advance of procedures"),
+    lack_familiarity_guidelines = lack_familiarity_guidelines |>
+      ff_label("Lack of familiarity with current guidelines"),
+    gen_believe_nutrition_unimportant = gen_believe_nutrition_unimportant |>
+      ff_label("General belief that provision of adequate nutrition does not impact on patient outcome"),
+    sex = factor(sex) |>
+      fct_recode("Male" = "1",
+                  "Female" = "2") |>
+      ff_label("Sex"),
+    age = factor(age) |>
+      fct_recode(
+        "34 years or less" = "1",
+        "35 - 49 years" = "2",
+        "50 - 64 years" = "3",
+        "65 years or older" = "4"
+      ) |>
+      ff_label ("Age"),
+    `prim_specialty-spec_primary` = factor(`prim_specialty-spec_primary`) |>
+      fct_recode(
+        "Dietitian" = "1",
+        "Nurse" = "2",
+        "Physician" = "3"
+      ) |> ff_label("Primary clinical specialty"),
+    `data-prim_specialty-prim_spec` = factor(`data-prim_specialty-prim_spec`) |>
+      fct_recode(
+        "Intensivist (Medical)" = "1",
+        "Intensivist (Surgical)" = "2",
+        "Anaesthesia" = "3",
+        "Emergency Medicine" = "4",
+        "Internal Medicine" = "5",
+        "Surgeon" = "6",
+        "Other clinical specialty" = "7"
+      ) |>
+      ff_label("Physician category"),
+    employement_status = factor(employement_status) |>
+      fct_recode(
+        "Full time" = "1",
+        "Part time" = "2",
+        "Locum" = "3",
+        "Casual" = "4",
+        "Trainee" = "5",
+        "Other" = "6"
+      ) |>
+      ff_label("Employment status"),
+    duration_work_icu = factor(duration_work_icu) |>
+      fct_recode(
+        "0 - 5 years" = "1",
+        "6 - 10 years" = "2",
+        "11 - 15 years" = "3",
+        "Greater than 15 years" = "4"
+      ) |>
+      ff_label("Duration working in the ICU"),
+    lead_role_icu = factor(lead_role_icu) |>
+      fct_recode(
+        "Yes" = "1",
+        "No" = "2"
+      ) |>
+      ff_label("Leadership in the ICU"),
+    specific_leadership_role = factor(specific_leadership_role) |>
+      fct_recode(
+        "Medical Director" = "1",
+        "Nurse Manager" = "2",
+        "Clinical Nurse Specialist" = "3",
+        "Charge Nurse" = "4",
+        "Other" = "5"
+      )
+  )
+```
+
+
+```{r table-summary}
+# Respondent characteristics
+
+df |>
+  select(
+    sex,
+    age,
+    `prim_specialty-spec_primary`,
+    `data-prim_specialty-prim_spec`,
+    `data-prim_specialty-primary_spec`,
+    employement_status,
+    duration_work_icu,
+    lead_role_icu,
+    specific_leadership_role
+  ) |>
+  tbl_summary()
+```
+
+```{r sub-categories}
+# Create subcategories
+## Delivery of Enteral Nutrition to the Patient
+
+## Dietitian Support
+
+## ICU Resources
+
+## Critical Care Provider Attitudes and Behaviour
+```
+
+
