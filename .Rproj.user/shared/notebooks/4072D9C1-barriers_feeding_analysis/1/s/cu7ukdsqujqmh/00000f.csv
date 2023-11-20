@@ -1,0 +1,42 @@
+"0","df |>"
+"0","  glimpse()"
+"1","Rows: 21"
+"1",""
+"1","
+"
+"1","Columns: 29"
+"1",""
+"1","
+"
+"1","$ delay_in_physician_ordering            [3m[38;5;246m<int>[39m[23m 3, 2, 6, 4, 2, 1, 3, 1, 2, 1, 1, 1, 0, 1, 3, 3, 1, 3, …
+$ wait_for_physician                     [3m[38;5;246m<int>[39m[23m 4, 0, 2, 5, 1, 0, 0, 2, 2, 0, 0, 1, 4, 2, 0, 2, 1, 2, …
+$ frequent_displacement_tube             [3m[38;5;246m<int>[39m[23m 2, 1, 6, 5, 0, 1, 2, 2, 2, 1, 0, 2, 5, 3, 5, 3, NA, 3,…
+$ delays_initiating_mobility_agents      [3m[38;5;246m<int>[39m[23m 4, 4, 6, 2, 1, 0, 1, 1, 1, 0, 2, 3, 0, 3, 4, 3, 2, 4, …
+$ delay_small_bowel_access               [3m[38;5;246m<int>[39m[23m 3, 5, 2, 4, 1, 0, 1, 1, 1, 1, 1, 2, 0, 3, 0, 2, 3, 2, …
+$ other_priorities                       [3m[38;5;246m<int>[39m[23m 2, 4, 5, 3, 1, 0, 2, 2, 1, 6, 0, 0, 2, 3, 0, 2, 2, 4, …
+$ mnt_not_discussed                      [3m[38;5;246m<int>[39m[23m 3, 4, 6, 5, 1, 1, 0, 2, 2, 2, 0, 0, 5, 2, 2, 3, 3, 3, …
+$ wait_for_dietitian                     [3m[38;5;246m<int>[39m[23m 5, 1, 6, 5, 5, 2, 3, 1, 2, 6, 2, 2, 0, 3, 5, 0, 2, 4, …
+$ dietitian_not_present_routinely        [3m[38;5;246m<int>[39m[23m 5, 2, 2, 4, 1, 5, 1, 2, 2, 6, 1, 0, 0, 1, 6, 4, 3, 2, …
+$ not_enough_dietitian_coverage          [3m[38;5;246m<int>[39m[23m 5, 5, 6, 4, 1, 6, 3, 2, 2, 6, 5, 3, 3, 1, 6, 6, 2, NA,…
+$ not_enough_time_training               [3m[38;5;246m<int>[39m[23m 6, 5, 3, 4, 2, 4, 2, 2, 2, 6, 0, 0, 0, 1, 6, 2, 3, 5, …
+$ en_formula_not_available               [3m[38;5;246m<int>[39m[23m 2, 4, 6, 4, 0, 5, 3, 2, 1, 6, 2, 4, 6, 1, 4, 4, 1, 1, …
+$ not_enough_feed_pumps                  [3m[38;5;246m<int>[39m[23m 2, 6, 3, 4, 1, 5, 4, 2, 1, 6, 1, 5, 5, 2, 0, 2, 1, 0, …
+$ non_icu_physicians_en_contraindication [3m[38;5;246m<int>[39m[23m 4, 4, 2, 5, 0, 4, 3, 1, 2, 3, 2, 1, 1, 1, 6, 0, 1, 1, …
+$ nurses_fail_progress_feed              [3m[38;5;246m<int>[39m[23m 5, 1, 1, 5, 0, 1, 1, 1, 2, 2, 1, 1, 1, 1, 6, 0, 2, 2, …
+$ feeds_held_diarrhoea                   [3m[38;5;246m<int>[39m[23m 3, 3, 6, 4, 0, 3, 1, 1, 2, 1, 0, 1, 0, 2, 2, 2, 2, NA,…
+$ fear_of_adverse_events                 [3m[38;5;246m<int>[39m[23m NA, 2, 6, NA, 0, 2, 2, 2, 2, 2, 0, 1, 3, 1, 3, 0, 2, 3…
+$ feed_held_too_far                      [3m[38;5;246m<int>[39m[23m 3, 1, 6, 4, 0, 2, 2, 2, 2, 1, 2, 1, 1, 1, 6, 1, 2, NA,…
+$ lack_familiarity_guidelines            [3m[38;5;246m<int>[39m[23m 2, 4, 2, 4, 0, 3, 3, 1, 1, 4, 0, 1, 4, 1, 4, 2, 2, 2, …
+$ gen_believe_nutrition_unimportant      [3m[38;5;246m<int>[39m[23m 6, 0, 0, 5, 0, 0, 0, 1, 1, 0, 0, 0, 2, 1, 1, 6, 1, 3, …
+$ sex                                    [3m[38;5;246m<fct>[39m[23m Female, Female, Female, Female, Male, Male, Male, Fema…
+$ age                                    [3m[38;5;246m<fct>[39m[23m 35 - 49 years, 35 - 49 years, 34 years or less, 34 yea…
+$ `prim_specialty-spec_primary`          [3m[38;5;246m<fct>[39m[23m Nurse, Nurse, Nurse, Nurse, Physician, Physician, Phys…
+$ `data-prim_specialty-prim_spec`        [3m[38;5;246m<fct>[39m[23m NA, NA, NA, NA, Surgeon, Other clinical specialty, Oth…
+$ `data-prim_specialty-primary_spec`     [3m[38;5;246m<chr>[39m[23m """", """", """", """", """", ""Medical officer"", ""General practi…
+$ employement_status                     [3m[38;5;246m<fct>[39m[23m Full time, Full time, Full time, Part time, Part time,…
+$ duration_work_icu                      [3m[38;5;246m<fct>[39m[23m 0 - 5 years, 11 - 15 years, 0 - 5 years, 0 - 5 years, …
+$ lead_role_icu                          [3m[38;5;246m<fct>[39m[23m No, NA, No, No, Yes, No, No, No, No, No, No, No, No, N…
+$ specific_leadership_role               [3m[38;5;246m<fct>[39m[23m NA, NA, NA, NA, Other, NA, NA, NA, NA, NA, NA, NA, NA,…"
+"1",""
+"1","
+"

@@ -1,0 +1,235 @@
+---
+title: "Analysis of patient sheet"
+format: docx
+---
+
+```{r setup, include=FALSE}
+# Project setup
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE) # mute codes
+```
+
+```{r load-packages}
+pacman::p_load(
+  tidyverse,
+  rio,
+  skimr,
+  here,
+  finalfit,
+  gtsummary
+)
+```
+
+
+```{r load-dataset}
+# Patient dataset
+patient <- import(here("data", "patients_clean.xlsx"))
+
+# Indicators
+indicators <- import(here("data", "indications_clean.xlsx"))
+
+# Antibiotics
+antibiotics <- import(here("data", "antibiotics_clean.xlsx"))
+```
+
+
+```{r eval=FALSE}
+glimpse(patient)
+```
+
+
+```{r change-data-types}
+# Convert patient length of stay into numeric data type
+patient$los_numeric <- 
+  as.integer(patient$LOS_days)
+
+# Convert number of antibiotics into numeric
+patient$num_antibiotics <- 
+  as.integer(patient$`Patient number of antibiotics`)
+```
+```{r remove-variables}
+# Remove length of stay and patient number of antibiotics
+patient <- 
+  patient |>
+    select(-c(LOS_days, `Patient number of antibiotics`))
+```
+
+
+```{r mutate-patient-variables}
+patient <- 
+    patient |>
+    mutate(
+      gender = factor(gender) |>
+        fct_recode(
+          "Male" = "M",
+          "Female" = "F"
+        ) |>
+        ff_label("Gender"),
+      `malaria status` = factor(`malaria status`) |>
+        fct_recode(
+          "No" = "no",
+          "Yes" = "yes",
+          "NA" = "NA",
+          "Unknown" = "unkwown" 
+        ) |>
+        ff_label("Malaria Status"),
+      `TB status` = factor(`TB status`) |>
+        fct_recode(
+          "No" = "no",
+          "NA" = "NA",
+          "Unknown" = "unkwown" 
+        ) |>
+        ff_label("TB Status"),
+      `HIV status` = factor(`HIV status`) |>
+        fct_recode(
+          "No" = "no",
+          "NA" = "NA",
+          "Unknown" = "unkwown" 
+        ) |>
+        ff_label("HIV Status"),
+      HIVonART = factor(HIVonART) |>
+        fct_recode(
+          "No" = "no",
+          "NA" = "NA",
+          "Unknown" = "unkwown" 
+        ) |>
+        ff_label("HIV on ART"),
+       HIVCD4Count = factor(HIVCD4Count) |>
+        fct_recode(
+          "No" = "no",
+          "NA" = "NA",
+          "Unknown" = "unkwown" 
+        ) |>
+        ff_label("HIV CD4 Count"),
+       HIVonART = factor(HIVonART) |>
+        fct_recode(
+          "No" = "no",
+          "NA" = "NA",
+          "Unknown" = "unkwown" 
+        ) |>
+        ff_label("HIV on ART"),
+      MalnutritionStatus = factor(MalnutritionStatus) |>
+        fct_recode(
+          "No" = "no",
+          "Yes" = "yes",
+          "NA" = "NA",
+          "Unknown" = "unkwown" 
+        ) |>
+        ff_label("Malnutrition Status"),
+      COPDStatus = factor(COPDStatus) |>
+        fct_recode(
+          "No" = "no",
+          "Yes" = "yes",
+          "NA" = "NA",
+          "Unknown" = "unkwown" 
+        ) |>
+        ff_label("COPD Status"),
+      `Transfer in` = factor(`Transfer in`) |>
+        fct_recode(
+          "No" = "no",
+          "Yes" = "yes",
+          "NA" = "NA",
+          "Unknown" = "unkwown" 
+        ) |>
+        ff_label("Transfer in"),
+      Hospitalisation90Days = factor(Hospitalisation90Days) |>
+        fct_recode(
+          "No" = "no",
+          "Yes" = "yes",
+          "NA" = "NA"
+        ) |>
+        ff_label("Hospitalisation 90 Days"),
+      Surgerysinceadmission = factor(Surgerysinceadmission) |>
+        fct_recode(
+          "No" = "no",
+          "Yes" = "yes",
+          "NA" = "NA",
+          "Unknown" = "unkwown" 
+        ) |>
+        ff_label("Surgery since admission"),
+      `Central vascular catheter` = factor(`Central vascular catheter`) |>
+        fct_recode(
+          "No" = "no",
+          "Yes" = "yes",
+          "NA" = "NA",
+          "Unknown" = "unkwown" 
+        ) |>
+        ff_label("Central vascular catheter"),
+      `Peripheral vascular catheter` = factor(`Peripheral vascular catheter`) |>
+        fct_recode(
+          "Yes" = "yes",
+          "NA" = "NA",
+          "Unknown" = "unkwown" 
+        ) |>
+        ff_label("Peripheral vascular catheter"),
+      `Urinary catheter` = factor(`Urinary catheter`) |>
+        fct_recode(
+          "No" = "no",
+          "Yes" = "yes",
+          "NA" = "NA",
+          "Unknown" = "unkwown",
+          "Unknown" = "ukn"
+        ) |>
+        ff_label("Urinary catheter"),
+      Intubation = factor(Intubation) |>
+        fct_recode(
+          "No" = "no",
+          "Yes" = "yes",
+          "NA" = "NA",
+          "Unknown" = "unkwown" 
+        ) |>
+        ff_label("Intubation"),
+      los_numeric = los_numeric |>
+        ff_label("Length of stay (days)"),
+      num_antibiotics = num_antibiotics |>
+        ff_label("Number of antibiotics"),
+      `Patient on antibiotic` = factor(`Patient on antibiotic`) |>
+        fct_recode(
+          "No" = "no",
+          "Yes" = "yes",
+          "NA" = "NA"
+        ) |>
+        ff_label("Patient on antibiotic"),
+      age = age |>
+        ff_label("Age (years)")
+    )
+```
+
+
+```{r summary-report, eval=FALSE}
+skim(patient)
+```
+
+```{r table-summary-patients}
+patient |>
+  select(-c(`patient ID`, `patient code`, `Date of Admission`)) |>
+  tbl_summary(
+    missing_text = "Blank"
+  )
+```
+
+
+## Additional information on the table summary
+
+**Length of stay** 
+
+Mean: `r mean(patient$los_numeric, na.rm = TRUE)` Standard deviation: `r sd(patient$los_numeric, na.rm = TRUE)`, Range: `r range(patient$los_numeric, na.rm = TRUE)` 
+
+**Number of antibiotics**
+
+Mean: `r round(mean(patient$num_antibiotics, na.rm = TRUE),2)`, Median: `r median(patient$num_antibiotics, na.rm = TRUE)`, IQR: `r quantile(patient$num_antibiotics, probs = c(0.25, 0.75), na.rm = TRUE)`
+
+
+---
+
+## Indicators
+
+```{r glimpse-indicators}
+glimpse(indicators)
+```
+
+
+```{r}
+glimpse(antibiotics)
+```
+
