@@ -147,7 +147,8 @@ df <- df |>
         "Clinical Nurse Specialist" = "3",
         "Charge Nurse" = "4",
         "Other" = "5"
-      )
+      ) |>
+      ff_label("Specific leadership role")
   )
 ```
 
@@ -167,8 +168,12 @@ df |>
     lead_role_icu,
     specific_leadership_role
   ) |>
-  tbl_summary()
+  tbl_summary(
+    type = all_dichotomous() ~ "category"
+  )
 ```
+
+
 
 ```{r sub-categories}
 # Create subcategories
