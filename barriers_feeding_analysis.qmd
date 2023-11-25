@@ -224,7 +224,8 @@ df |>
                   fear_of_adverse_events,              
                   feed_held_too_far,                    
                   lack_familiarity_guidelines,            
-                  gen_believe_nutrition_unimportant) ~ "continuous")
+                  gen_believe_nutrition_unimportant) ~ "continuous"),
+    digits = everything() ~ c(2, 2)
     # Show dichotomous variables as a category
     # type = all_dichotomous() ~ "category",
     # Remove missing values from count
