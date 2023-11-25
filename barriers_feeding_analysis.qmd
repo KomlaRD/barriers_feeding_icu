@@ -314,6 +314,49 @@ df |>
 ```
 
 
+```{r primary-clinical-specialty}
+df |>
+  select(-c(
+    age,
+    sex,
+    `data-prim_specialty-prim_spec`,
+    `data-prim_specialty-primary_spec`,
+    employement_status,
+    duration_work_icu,
+    lead_role_icu,
+    specific_leadership_role
+  )) |>
+  tbl_summary(
+    by = `prim_specialty-spec_primary`,
+    statistic = all_continuous() ~ "{mean} ({sd})",
+    missing_text ="No response",
+    type = list(c(delay_in_physician_ordering,
+                  wait_for_physician,
+                  frequent_displacement_tube,
+                  frequent_displacement_tube,            
+                  delays_initiating_mobility_agents,      
+                  delay_small_bowel_access,              
+                  other_priorities ,                     
+                  mnt_not_discussed ,                     
+                  wait_for_dietitian,                    
+                  dietitian_not_present_routinely,        
+                  not_enough_dietitian_coverage ,        
+                  not_enough_time_training,            
+                  en_formula_not_available,             
+                  not_enough_feed_pumps,                  
+                  non_icu_physicians_en_contraindication,
+                  nurses_fail_progress_feed ,            
+                  feeds_held_diarrhoea,                  
+                  fear_of_adverse_events,              
+                  feed_held_too_far,                    
+                  lack_familiarity_guidelines,            
+                  gen_believe_nutrition_unimportant) ~ "continuous"),
+    digits = everything() ~ c(2, 2)
+  ) |> add_p() |>
+  bold_p()
+```
+
+
 
 ```{r sub-categories}
 # Create subcategories
