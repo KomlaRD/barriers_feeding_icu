@@ -226,11 +226,48 @@ df |>
                   lack_familiarity_guidelines,            
                   gen_believe_nutrition_unimportant) ~ "continuous"),
     digits = everything() ~ c(2, 2)
-    # Show dichotomous variables as a category
-    # type = all_dichotomous() ~ "category",
-    # Remove missing values from count
-    # missing = "no"
   )
+```
+
+
+```{r top-five-barriers}
+# Barriers
+barrier_vars <- c(
+  "delay_in_physician_ordering",
+  "wait_for_physician",
+  "frequent_displacement_tube",
+  "delays_initiating_mobility_agents",
+  "delay_small_bowel_access",
+  "other_priorities",
+  "mnt_not_discussed",
+  "wait_for_dietitian",
+  "dietitian_not_present_routinely",
+  "not_enough_dietitian_coverage",
+  "not_enough_time_training",
+  "en_formula_not_available",
+  "not_enough_feed_pumps",
+  "non_icu_physicians_en_contraindication",
+  "nurses_fail_progress_feed",
+  "feeds_held_diarrhoea",
+  "fear_of_adverse_events",
+  "feed_held_too_far",
+  "lack_familiarity_guidelines",
+  "gen_believe_nutrition_unimportant"
+)
+
+# Select the barrier variables and calculate their means
+barrier_means <- df %>%
+  select(all_of(barrier_vars)) %>%
+  summarise(across(everything(), mean, na.rm = TRUE)) %>%
+  pivot_longer(cols = everything(), names_to = "barrier", values_to = "mean_score")
+
+# Sort the barriers by mean score in descending order and get the top 5
+top_barriers <- barrier_means %>%
+  arrange(desc(mean_score)) %>%
+  slice_head(n = 5)
+
+# Output the top 5 barriers
+print(top_barriers)
 ```
 
 
