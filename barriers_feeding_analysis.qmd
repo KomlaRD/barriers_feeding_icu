@@ -27,7 +27,7 @@ df |>
 
 ```{r replace-empty-values}
 # Replace empty values to NA
-df[df$`data-prim_specialty-primary_spec` == ""] <- NA
+df$`data-prim_specialty-primary_spec`[df$`data-prim_specialty-primary_spec` == ""] <- NA
 ```
 
 
@@ -158,11 +158,6 @@ df <- df |>
     `data-prim_specialty-primary_spec` = factor(`data-prim_specialty-primary_spec`) |>
       ff_label("Other clinical specialty")
   )
-```
-
-
-```{r}
-
 ```
 
 
