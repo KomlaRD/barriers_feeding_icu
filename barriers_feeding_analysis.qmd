@@ -1,6 +1,7 @@
 ---
 title: "Barriers to feeding in the ICU"
-format: html
+author: "Eric Anku"
+format: docx
 ---
 
 ```{r install-packages}
