@@ -25,6 +25,12 @@ df |>
   glimpse()
 ```
 
+```{r replace-empty-values}
+# Replace empty values to NA
+df[df$`data-prim_specialty-primary_spec` == ""] <- NA
+```
+
+
 ```{r remove-questions}
 # Remove questionnaire improvement questions
 df <- 
@@ -148,8 +154,15 @@ df <- df |>
         "Charge Nurse" = "4",
         "Other" = "5"
       ) |>
-      ff_label("Specific leadership role")
+      ff_label("Specific leadership role"),
+    `data-prim_specialty-primary_spec` = factor(`data-prim_specialty-primary_spec`) |>
+      ff_label("Other clinical specialty")
   )
+```
+
+
+```{r}
+
 ```
 
 
@@ -169,7 +182,10 @@ df |>
     specific_leadership_role
   ) |>
   tbl_summary(
-    type = all_dichotomous() ~ "category"
+    # Show dichotomous variables as a category
+    # type = all_dichotomous() ~ "category",
+    # Remove missing values from count
+    missing = "no"
   )
 ```
 
