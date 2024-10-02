@@ -200,7 +200,7 @@ df |>
 
 ```{r barriers-evaluation}
 # Find the mean and standard deviations of the barriers
-df |>
+summary_table <- df |>
   select(-c(
     sex,
     age,
@@ -237,6 +237,11 @@ df |>
                   lack_familiarity_guidelines,            
                   gen_believe_nutrition_unimportant) ~ "continuous"),
     digits = everything() ~ c(2, 2)
+  )
+
+summary_table %>%
+  modify_table_body(
+    ~ arrange(., desc(as.numeric(str_extract(stat_0, "^[^ ]+"))))
   )
 ```
 
@@ -279,6 +284,11 @@ top_barriers <- barrier_means %>%
 
 # Output the top 5 barriers
 print(top_barriers)
+```
+```{r barriers}
+# All barriers ranked
+top_barriers <- barrier_means %>%
+  arrange(desc(mean_score))
 ```
 
 
