@@ -321,12 +321,12 @@ barrier_vars <- c(
 # Select the barrier variables and calculate their means
 barrier_means <- df %>%
   select(all_of(barrier_vars)) %>%
-  summarise(across(everything(), median(), na.rm = TRUE)) %>%
+  summarise(across(everything(), median, na.rm = TRUE)) %>%
   pivot_longer(cols = everything(), names_to = "barrier", values_to = "median_score")
 
 # Sort the barriers by mean score in descending order and get the top 5
 top_barriers <- barrier_means %>%
-  arrange(desc(mean_score)) %>%
+  arrange(desc(median_score)) %>%
   slice_head(n = 5)
 
 # Output the top 5 barriers
