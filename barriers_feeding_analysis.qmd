@@ -149,7 +149,7 @@ df <- df |>
         "11 - 15 years" = "3",
         "Greater than 15 years" = "4"
       ) |>
-      ff_label("Duration working in the ICU"),
+      ff_label("ICu experience"),
     lead_role_icu = factor(lead_role_icu) |>
       fct_recode(
         "Yes" = "1",
