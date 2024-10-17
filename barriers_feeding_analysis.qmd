@@ -247,7 +247,7 @@ df |>
 
 
 ```{r barriers-evaluation}
-# Find the mean and standard deviations of the barriers
+# Find the median (IQR) of the barriers
 summary_table <- df |>
   select(-c(
     sex,
@@ -261,7 +261,6 @@ summary_table <- df |>
     specific_leadership_role
   )) |>
   tbl_summary(
-    # statistic = all_continuous() ~ "{mean} ({sd})",
     missing_text ="No response",
     type = list(c(delay_in_physician_ordering,
                   wait_for_physician,
