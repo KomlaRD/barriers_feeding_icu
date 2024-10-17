@@ -337,7 +337,7 @@ print(top_barriers)
 ```{r barriers}
 # All barriers ranked
 top_barriers <- barrier_means %>%
-  arrange(desc(mean_score))
+  arrange(desc(median_score))
 ```
 
 
