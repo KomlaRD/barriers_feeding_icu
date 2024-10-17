@@ -229,23 +229,17 @@ print(shapiro_p_values)
 
 
 ```{r table-summary}
-# Respondent characteristics
+# Respondent characteristics: Table 2
 
 df |>
   select(
-    sex,
-    age,
-    `prim_specialty-spec_primary`,
-    `data-prim_specialty-prim_spec`,
-    `data-prim_specialty-primary_spec`,
-    employement_status,
-    duration_work_icu,
-    lead_role_icu,
-    specific_leadership_role
+    age, # Age of participants
+    `prim_specialty-spec_primary`, # Primary clinical specialty
+    `data-prim_specialty-prim_spec`, # Physician category
+    `data-prim_specialty-primary_spec`, # Other clinical specialty
+    duration_work_icu, # ICU experience
   ) |>
   tbl_summary(
-    # Show dichotomous variables as a category
-    # type = all_dichotomous() ~ "category",
     # Remove missing values from count
     missing = "no"
   )
