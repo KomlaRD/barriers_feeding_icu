@@ -265,7 +265,6 @@ summary_table <- df |>
     type = list(c(delay_in_physician_ordering,
                   wait_for_physician,
                   frequent_displacement_tube,
-                  frequent_displacement_tube,            
                   delays_initiating_mobility_agents,      
                   delay_small_bowel_access,              
                   other_priorities ,                     
