@@ -21,7 +21,8 @@ pacman::p_load(
   finalfit, # Labelling
   DataExplorer, # EDA
   explore, # EDA
-  SmartEDA # EDA
+  SmartEDA, # EDA
+  likert # Likert Plots
 )
 ```
 
@@ -251,6 +252,7 @@ head(refactor_df)
 ```{r create-eda-reports}
 # Data Explorer
 create_report(df, report_title = "Barriers to feeding EDA")
+create_report(refactor_df, report_title = "Questions refactored EDA")
 ```
 
 ```{r create-eda-smarteda}
@@ -259,6 +261,11 @@ ExpReport(df, op_file="Barriers to feeding EDA")
 
 ```{r shiny-explore}
 df |>
+  explore()
+```
+
+```{r refactor-eda}
+refactor_df |>
   explore()
 ```
 
