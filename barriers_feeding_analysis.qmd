@@ -214,7 +214,7 @@ print(shapiro_p_values)
 ```
 
 
-```{r}
+```{r shapiro-doctor-subset}
 # Extract numeric variables
 numeric_vars <- df_doctor |>
   select_if(is.numeric) |>
@@ -229,6 +229,22 @@ shapiro_p_values <- numeric_vars |>
 print(shapiro_p_values)
 ```
 
+
+# EDA and Descriptive Statistics
+
+```{r create-eda-reports}
+# Data Explorer
+create_report(df, report_title = "Barriers to feeding EDA")
+```
+
+```{r create-eda-smarteda}
+ExpReport(df, op_file="Barriers to feeding EDA")
+```
+
+```{r shiny-explore}
+df |>
+  explore()
+```
 
 
 ```{r table-summary}
