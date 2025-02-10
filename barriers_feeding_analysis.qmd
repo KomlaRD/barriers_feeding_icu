@@ -269,6 +269,74 @@ refactor_df |>
   explore()
 ```
 
+```{r create-likert-plot}
+levels_to_use <- c("Little", "Moderate", "A lot")
+
+refactor_df[] <- lapply(refactor_df, function(x) {factor(x, levels=levels_to_use, ordered=TRUE, exclude=NULL)})
+
+question_labels <- c(
+  "Delay in physician ordering the initiation of EN",
+  "Waiting for physician to confirm tube placement",
+  "Frequent displacement of feeding tube",
+  "Delays in initiating motility agents",
+  "Delays and difficulties in obtaining small bowel access",
+  "Other aspects of care take priority over nutrition",
+  "Nutrition therapy not routinely discussed",
+  "Waiting for dietitian to assess the patient",
+  "Dietitian not routinely present on weekday patient rounds",
+  "Not enough dietitian coverage",
+  "Not enough time dedicated to education and training on optimal feeding",
+  "Enteral formula not available on the unit",
+  "No or not enough feeding pumps",
+  "Non-ICU physicians requesting patient not to be fed",
+  "Nurses failing to progress feed",
+  "Feeds being held due to diarrhoea",
+  "Fear of adverse events",
+  "Feeding being held too far in advance of procedures",
+  "Lack of familiarity with current guidelines",
+  "General belief that provision of adequate nutrition does not impact on patient outcome"
+)
+
+colnames(refactor_df) <- question_labels
+
+likert_data <- likert(refactor_df)
+
+# question_labels <- c(
+#   "Weekend and holidays dietitian coverage",
+#   "No or not enough feeding pumps",
+#   "Enteral formula not available on the unit",
+#   "Not enough time for training",
+#   "Waiting for dietitian to assess the patient",
+#   "Delays in initiating motility agents",
+#   "Dietitian not routinely present on weekday patient rounds",
+#   "Lack of familiarity with current guidelines",
+#   "Frequent displacement of feeding tube",
+#   "Non-ICU physicians requesting patient not to be fed",
+#   "Nutrition therapy not routinely discussed",
+#   "Small bowel access",
+#   "Feeding tube confirmation",
+#   "Belief about the nutrition and outcomes",
+#   "Nutrition importance",
+#   "Holding feed for procedures",
+#   "Nurses failing to progress feed",
+#   "Delayed EN initiation",
+#   "Feed held due to diarrhoea",
+#   "Fear of adverse events"
+# )
+
+likert_data$items <- setNames(likert_data$items, question_labels)
+p1 <- plot(likert_data) + 
+  scale_fill_viridis_d(name = "Response") +
+labs(title = "Perceived barriers to provision of EN", caption = "EN = Enteral Nutrition, ICU=Intensive care unit")
+```
+
+```{r save-likert-plot}
+ggsave(filename = "Fig. 1.pdf", p1, width = 9, dpi = 600)
+```
+```{r save-png-version}
+ggsave(filename = "Fig. 1.png", p1, width = 9, dpi = 600)
+```
+
 
 ```{r table-summary}
 # Respondent characteristics: Table 2
