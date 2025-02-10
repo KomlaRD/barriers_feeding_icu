@@ -20,7 +20,7 @@ pacman::p_load(
   skimr, # EDA
   finalfit, # Labelling
   DataExplorer, # EDA
-  explorer, # EDA
+  explore, # EDA
   SmartEDA # EDA
 )
 ```
