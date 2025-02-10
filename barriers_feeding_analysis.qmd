@@ -229,6 +229,22 @@ shapiro_p_values <- numeric_vars |>
 print(shapiro_p_values)
 ```
 
+```{r refactor-values}
+# Create function to refactor values
+refactor_likert <- function(x) {
+  as.factor(ifelse(x %in% 0:2, "Little",
+                   ifelse(x == 3, "Moderate", "A lot")))
+}
+
+# Select 20 questions
+questions <- df[1:20]
+
+# Apply refactor function to all 20 questions
+
+refactor_df <- data.frame(lapply(questions, refactor_likert))
+head(refactor_df)
+```
+
 
 # EDA and Descriptive Statistics
 
