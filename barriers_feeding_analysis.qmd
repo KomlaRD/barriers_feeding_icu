@@ -327,8 +327,12 @@ likert_data <- likert(refactor_df)
 likert_data$items <- setNames(likert_data$items, question_labels)
 p1 <- plot(likert_data) + 
   scale_fill_viridis_d(name = "Response") +
-labs(title = "Perceived barriers to provision of EN", caption = "EN = Enteral Nutrition, ICU=Intensive care unit")
+labs(title = "Perceived barriers to provision of EN", caption = "EN = Enteral Nutrition, ICU=Intensive care unit") + theme(axis.text.x = element_blank())
 ```
+```{r extract-data-from-likert}
+df_visualise <- likert_data$results
+```
+
 
 ```{r save-likert-plot}
 ggsave(filename = "Fig. 1.pdf", p1, width = 9, dpi = 600)
@@ -336,6 +340,8 @@ ggsave(filename = "Fig. 1.pdf", p1, width = 9, dpi = 600)
 ```{r save-png-version}
 ggsave(filename = "Fig. 1.png", p1, width = 9, dpi = 600)
 ```
+
+
 
 
 ```{r table-summary}
