@@ -331,6 +331,15 @@ labs(title = "Perceived barriers to provision of EN", caption = "EN = Enteral Nu
 ```
 ```{r extract-data-from-likert}
 df_visualise <- likert_data$results
+
+# Round numbers to 1 decimal place
+df_visualise <- df_visualise |> 
+  mutate(across(where(is.numeric), ~round(.x, digits = 1))) |> 
+  select(Item, Little, Moderate, `A lot`)
+
+
+# Export dataset
+export(df_visualise, here("data", "datawrapper.csv"))
 ```
 
 
